@@ -44,7 +44,7 @@ fetch()
 mkdir -p "$DOWNLOAD_DIR"
 pushd "$DOWNLOAD_DIR"
 
-echo -e "${GREEN}downloading resource into $DOWNLOAD_DIR${NC}"
+echo -e "${GREEN}downloading resources into $DOWNLOAD_DIR${NC}"
 
 # google test
 fetch https://github.com/google/googletest/archive/refs/tags/release-1.10.0.tar.gz googletest-release-1.10.0.tar.gz
