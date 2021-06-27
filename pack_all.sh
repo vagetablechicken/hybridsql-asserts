@@ -34,7 +34,7 @@ pushd "$WORKDIR"
 mkdir -p "$INSTALL_DIR"
 
 unpack_and_install boost
-# unpack_and_install llvm
+unpack_and_install llvm
 unpack_and_install libother
 
 tar czf "$INSTALL_DIR.tar.gz" "$INSTALL_DIR"
