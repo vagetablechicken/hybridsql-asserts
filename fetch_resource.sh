@@ -96,9 +96,6 @@ fetch https://github.com/google/benchmark/archive/v1.5.0.tar.gz v1.5.0.tar.gz
 # incubator brpc
 fetch https://github.com/4paradigm/incubator-brpc/archive/4f69bc0c04abc0734962722ba43aecb4dd7a5dea.zip incubator-brpc.zip
 
-# doxygen
-fetch https://github.com/doxygen/doxygen/archive/Release_1_8_19.tar.gz doxygen-1.8.19.src.tar.gz
-
 # zookeeper
 fetch https://archive.apache.org/dist/zookeeper/zookeeper-3.4.14/zookeeper-3.4.14.tar.gz apache-zookeeper-3.4.14.tar.gz
 
