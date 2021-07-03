@@ -97,11 +97,7 @@ else
 	echo "installing zlib..."
 	tar xzf zlib-1.2.11.tar.gz
 	pushd zlib-1.2.11
-	# -i '': For MacOS, if a zero-length extension is given, no backup will be saved.
-	# And needs return after \ for MacOS.
-	sed -i '' '/CFLAGS="${CFLAGS--O3}"/c\
-	  CFLAGS="${CFLAGS--O3} -fPIC"' configure
-	./configure --static --prefix="$DEPS_PREFIX"
+	CFLAGS="-O3 -fPIC" ./configure --static --prefix="$DEPS_PREFIX"
 	make -j"$(nproc)"
 	make install
 	popd
@@ -174,8 +170,7 @@ else
     # TODO fix compile on leveldb 1.23
 	tar zxf leveldb-1.20.tar.gz
 	pushd leveldb-1.20
-	sed -i '' 's/^OPT ?= -O2 -DNDEBUG/OPT ?= -O2 -DNDEBUG -fPIC/' Makefile
-	make "-j$(nproc)"
+	make "-j$(nproc)" OPT="-O2 -DNDEBUG -fPIC"
 	cp -rf include/* "$DEPS_PREFIX/include"
 	cp out-static/libleveldb.a "$DEPS_PREFIX/lib"
 	popd
