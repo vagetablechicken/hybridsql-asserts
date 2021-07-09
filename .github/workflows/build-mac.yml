@@ -151,6 +151,8 @@ jobs:
       - name: Pack All
         run: |
           ./pack_all.sh
+        # rename packages
+          for var in *.tar.gz; do mv "$var" "${var%.tar.gz}-mac.tar.gz"; done
 
       - name: Release
         uses: softprops/action-gh-release@v1
