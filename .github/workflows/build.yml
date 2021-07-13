@@ -205,7 +205,7 @@ jobs:
         with:
           path: boost-*.tar.gz
 
-  build-boost:
+  build-boost-mac:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v2
