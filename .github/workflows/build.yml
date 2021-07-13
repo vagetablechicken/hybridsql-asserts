@@ -253,13 +253,13 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: artifact
-          path: linux
+          path: linux/artifact
 
       - name: Download Artifacts For Mac
         uses: actions/download-artifact@v2
         with:
           name: artifact-mac
-          path: mac
+          path: mac/artifact
 
       - name: Determine Version
         run: |
@@ -269,10 +269,6 @@ jobs:
       - name: Pack All
         working-directory: linux
         run: |
-          echo "ls .."
-          ls ..
-          echo "ls "
-          ls
           cp ../pack_all.sh .
           ./pack_all.sh
 
