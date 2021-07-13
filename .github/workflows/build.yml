@@ -39,6 +39,8 @@ jobs:
 
       - name: build
         run: |
+          echo "test"
+          apt-get install rename
           ./pack_other.sh
 
       - name: Upload Artifact
@@ -94,6 +96,7 @@ jobs:
         if: ${{ github.event_name == 'push' }}
         uses: actions/upload-artifact@v2
         with:
+          name: artifact-mac
           path: |
             libother-*.tar.gz
             src/apache-zookeeper-*.tar.gz
@@ -171,6 +174,7 @@ jobs:
         if: ${{ github.event_name == 'push' }}
         uses: actions/upload-artifact@v2
         with:
+          name: artifact-mac
           path: llvm-*.tar.gz
 
 
@@ -205,7 +209,7 @@ jobs:
         with:
           path: boost-*.tar.gz
 
-  build-boost:
+  build-boost-mac:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v2
@@ -237,6 +241,7 @@ jobs:
         if: ${{ github.event_name == 'push' }}
         uses: actions/upload-artifact@v2
         with:
+          name: artifact-mac
           path: boost-*.tar.gz
           
   release:
@@ -248,21 +253,40 @@ jobs:
 
       - name: Download Artifacts
         uses: actions/download-artifact@v2
+        with:
+          name: artifact
+          path: linux/artifact
+
+      - name: Download Artifacts For Mac
+        uses: actions/download-artifact@v2
+        with:
+          name: artifact-mac
+          path: mac/artifact
 
       - name: Determine Version
-        working-directory: artifact
         run: |
           VERSION=$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')
           VERSION=$(echo $VERSION | sed -e 's/^v//')
 
       - name: Pack All
+        working-directory: linux
         run: |
+          cp ../pack_all.sh .
           ./pack_all.sh
+
+      - name: Pack All For Mac
+        working-directory: mac
+        # rename the mac pkg
+        run: |
+          cp ../pack_all.sh .
+          ./pack_all.sh
+          rename thirdparty thirdparty-mac artifact/*.tar.gz
 
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
           files: |
-            artifact/*.tar.gz
+            linux/artifact/third*.tar.gz
+            mac/artifact/thridparty-mac*.tar.gz
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
