@@ -252,7 +252,7 @@ jobs:
       - name: Download Artifacts
         uses: actions/download-artifact@v2
         with:
-          # default name artitfact
+          name: artitfact
           path: linux
 
       - name: Download Artifacts For Mac
