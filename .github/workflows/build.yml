@@ -94,6 +94,7 @@ jobs:
         if: ${{ github.event_name == 'push' }}
         uses: actions/upload-artifact@v2
         with:
+          name: artifact-mac
           path: |
             libother-*.tar.gz
             src/apache-zookeeper-*.tar.gz
@@ -171,6 +172,7 @@ jobs:
         if: ${{ github.event_name == 'push' }}
         uses: actions/upload-artifact@v2
         with:
+          name: artifact-mac
           path: llvm-*.tar.gz
 
 
@@ -237,6 +239,7 @@ jobs:
         if: ${{ github.event_name == 'push' }}
         uses: actions/upload-artifact@v2
         with:
+          name: artifact-mac
           path: boost-*.tar.gz
           
   release:
@@ -248,21 +251,38 @@ jobs:
 
       - name: Download Artifacts
         uses: actions/download-artifact@v2
+        with:
+          # default name artitfact
+          path: linux
+
+      - name: Download Artifacts For Mac
+        uses: actions/download-artifact@v2
+        with:
+          name: artifact-mac
+          path: mac
 
       - name: Determine Version
-        working-directory: artifact
         run: |
           VERSION=$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')
           VERSION=$(echo $VERSION | sed -e 's/^v//')
 
       - name: Pack All
+        working-directory: linux
         run: |
           ./pack_all.sh
+
+      - name: Pack All For Mac
+        working-directory: mac
+        # rename the mac pkg
+        run: |
+          ./pack_all.sh
+          rename thirdparty thirdparty-mac artifact/*.tar.gz
 
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
           files: |
-            artifact/*.tar.gz
+            linux/artifact/third*.tar.gz
+            mac/artifact/thridparty-mac*.tar.gz
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
