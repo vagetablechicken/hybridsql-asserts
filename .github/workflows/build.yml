@@ -269,12 +269,18 @@ jobs:
       - name: Pack All
         working-directory: linux
         run: |
+          echo "ls .."
+          ls ..
+          echo "ls "
+          ls
+          cp ../pack_all.sh .
           ./pack_all.sh
 
       - name: Pack All For Mac
         working-directory: mac
         # rename the mac pkg
         run: |
+          cp ../pack_all.sh .
           ./pack_all.sh
           rename thirdparty thirdparty-mac artifact/*.tar.gz
 
