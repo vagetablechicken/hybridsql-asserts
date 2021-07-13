@@ -35,6 +35,8 @@ jobs:
       - name: download
         if: steps.cache-source.outputs.cache-hit != 'true'
         run: |
+          echo "test"
+          apt-get install rename
           ./fetch_resource.sh
 
       - name: build
