@@ -12,8 +12,8 @@ on:
 jobs:
   build-other:
     runs-on: ubuntu-latest
-    container:
-      image: ghcr.io/aceforeverd/hybridsql-base:0.0.8
+    # container:
+    #   image: ghcr.io/aceforeverd/hybridsql-base:0.0.8
 
     steps:
       - uses: actions/checkout@v2
@@ -37,13 +37,11 @@ jobs:
         run: |
           ./fetch_resource.sh
 
-      - name: apt multiarch helper action Test
-        uses: ryankurte/action-apt@v0.3.0
-
       - name: build
         run: |
           echo "test"
-          sudo apt install rename
+          sudo apt-get update
+          sudo apt-get install util-linux
           ./pack_other.sh
 
       - name: Upload Artifact
