@@ -37,10 +37,13 @@ jobs:
         run: |
           ./fetch_resource.sh
 
+      - name: apt multiarch helper action Test
+        uses: ryankurte/action-apt@v0.3.0
+
       - name: build
         run: |
           echo "test"
-          apt install rename
+          sudo apt install rename
           ./pack_other.sh
 
       - name: Upload Artifact
