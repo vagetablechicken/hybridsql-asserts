@@ -10,10 +10,18 @@ on:
   pull_request:
 
 jobs:
+  github-host-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: test
+        run: |
+          sudo apt-get update
+          sudo apt-get install util-linux
+          rename
   build-other:
     runs-on: ubuntu-latest
-    # container:
-    #   image: ghcr.io/aceforeverd/hybridsql-base:0.0.8
+    container:
+      image: ghcr.io/aceforeverd/hybridsql-base:0.0.8
 
     steps:
       - uses: actions/checkout@v2
@@ -39,9 +47,6 @@ jobs:
 
       - name: build
         run: |
-          echo "test"
-          sudo apt-get update
-          sudo apt-get install util-linux
           ./pack_other.sh
 
       - name: Upload Artifact
