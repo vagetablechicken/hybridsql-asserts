@@ -245,7 +245,7 @@ jobs:
   release:
     runs-on: ubuntu-latest
     if: startsWith(github.ref, 'refs/tags/v')
-    needs: ['build-other', 'build-llvm', 'build-boost']
+    needs: ['build-other', 'build-llvm', 'build-boost', 'build-other-mac', 'build-llvm-mac', 'build-boost-mac']
     steps:
       - uses: actions/checkout@v2
 
