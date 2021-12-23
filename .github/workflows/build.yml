@@ -10,8 +10,8 @@ on:
   pull_request:
 
 env:
-  OPENMLDB_REPO: 4paradigm/OpenMLDB
-  OPENMLDB_REF: a8eccee718a90a793623567c9703709a43657059
+  OPENMLDB_REPO: vagetablechicken/fedb
+  OPENMLDB_REF: 11d2992426c830228f4a9adbcb7144a090b86785
 
 jobs:
   thirdparty-linux:
